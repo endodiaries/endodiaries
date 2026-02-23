@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resources - Endo Diaries</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --rose:       #e8a0b0;
+      --rose-deep:  #c4687e;
+      --blush:      #f5e6ea;
+      --lavender:   #c9afd4;
+      --plum:       #7a3f6e;
+      --cream:      #fdf6f8;
+      --text:       #2d1a26;
+      --text-muted: #8a6070;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      backdrop-filter: blur(12px);
+      background: rgba(253,246,248,0.85);
+      border-bottom: 1px solid rgba(232,160,176,0.2);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--plum);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--plum); }
+
+    /* HERO */
+    .page-hero {
+      padding: 10rem 3rem 5rem;
+      text-align: center;
+      background: linear-gradient(160deg, var(--blush) 0%, var(--cream) 100%);
+      position: relative;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 50% 40% at 70% 20%, rgba(201,175,212,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 40% at 30% 70%, rgba(232,160,176,0.2) 0%, transparent 50%);
+      z-index: 0;
+    }
+
+    .page-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .page-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--rose-deep);
+      border: 1px solid var(--rose);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .page-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--plum);
+      margin-bottom: 1rem;
+    }
+
+    .page-hero h1 em {
+      font-style: italic;
+      color: var(--rose-deep);
+    }
+
+    .page-hero p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    /* MAIN CONTENT */
+    main {
+      padding: 5rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .resource-section {
+      margin-bottom: 5rem;
+    }
+
+    .resource-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: var(--plum);
+      margin-bottom: 0.8rem;
+    }
+
+    .resource-section h2 em {
+      font-style: italic;
+      color: var(--rose-deep);
+    }
+
+    .resource-intro {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 800px;
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .resource-card {
+      background: white;
+      border-radius: 20px;
+      padding: 2.2rem;
+      border: 1px solid rgba(232,160,176,0.15);
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .resource-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--rose);
+      box-shadow: 0 12px 30px rgba(122,63,110,0.1);
+    }
+
+    .resource-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: var(--blush);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1.3rem;
+    }
+
+    .resource-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--plum);
+      margin-bottom: 0.8rem;
+      font-weight: 400;
+    }
+
+    .resource-card p {
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .resource-list {
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    .resource-list li {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      padding-left: 1.2rem;
+      position: relative;
+      margin-bottom: 0.6rem;
+    }
+
+    .resource-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--rose-deep);
+    }
+
+    .resource-link {
+      display: inline-block;
+      margin-top: 1rem;
+      color: var(--rose-deep);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.25s;
+    }
+
+    .resource-link:hover {
+      color: var(--plum);
+    }
+
+    .content-box {
+      background: var(--blush);
+      border-radius: 18px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .content-box h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--plum);
+      margin-bottom: 1rem;
+    }
+
+    .content-box p,
+    .content-box ul {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+
+    .content-box ul {
+      margin-left: 1.5rem;
+      margin-top: 0.8rem;
+    }
+
+    .content-box li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.6);
+      padding: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: white;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8rem;
+      transition: color 0.25s;
+    }
+
+    .footer-links a:hover { color: var(--rose); }
+
+    .footer-copy { font-size: 0.78rem; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      .page-hero { padding: 8rem 1.5rem 4rem; }
+      main { padding: 3rem 1.5rem; }
+      .resource-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Endo Diaries</a>
+    <ul class="nav-links">
+      <li><a href="index.html#story">My Story</a></li>
+      <li><a href="index.html#blog">Blog</a></li>
+      <li><a href="resources.html" class="active">Resources</a></li>
+      <li><a href="index.html#community">Community</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <span class="page-tag">Knowledge is power</span>
+      <h1>Resources & <em>Information</em></h1>
+      <p>
+        Everything I wish someone had told me when I first got diagnosed. 
+        Real info about endometriosis, navigating Nigerian healthcare, and what actually helps.
+      </p>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- UNDERSTANDING ENDO -->
+    <section class="resource-section">
+      <h2>Understanding <em>Endometriosis</em></h2>
+      <p class="resource-intro">
+        Let's start with the basics. What is this thing, why does it hurt so much, 
+        and why do doctors act like they've never heard of it?
+      </p>
+
+      <div class="content-box">
+        <h3>What is Endometriosis? (Explained Like You're Not a Doctor)</h3>
+        <p>
+          Okay, so normally, the inside of your uterus has a lining called the endometrium. 
+          Every month, this lining builds up to prepare for a potential pregnancy. If you don't get pregnant, 
+          the lining breaks down and leaves your body — that's your period.
+        </p>
+        <p style="margin-top: 1rem;">
+          With endometriosis, tissue that's similar to that uterine lining starts growing in places 
+          it's not supposed to be — like on your ovaries, fallopian tubes, the outside of your uterus, 
+          your bladder, your bowel, or even further away in rare cases.
+        </p>
+        <p style="margin-top: 1rem;">
+          Here's the problem: when you get your period, that tissue outside your uterus also bleeds 
+          and breaks down, just like the lining inside does. But it has nowhere to go. It's trapped. 
+          That causes inflammation, swelling, and scar tissue. And it hurts. A lot.
+        </p>
+        <p style="margin-top: 1rem;">
+          Over time, this can cause organs to stick together (called adhesions), cysts to form on your ovaries 
+          (called endometriomas or "chocolate cysts"), and chronic pain that doesn't just happen during your period.
+        </p>
+        <p style="margin-top: 1rem;">
+          <strong>In simple terms:</strong> Your body is growing tissue where it shouldn't, and every month 
+          that tissue bleeds internally with nowhere to go. It's painful, exhausting, and often dismissed by doctors 
+          who think period pain is "normal."
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h3>Common Symptoms</h3>
+        <ul>
+          <li>Extremely painful periods (not just cramps — like can't-move pain)</li>
+          <li>Pain during or after sex</li>
+          <li>Pain when using the bathroom during your period</li>
+          <li>Heavy bleeding or bleeding between periods</li>
+          <li>Fatigue that won't go away</li>
+          <li>Fertility issues</li>
+          <li>Digestive problems (bloating, nausea, diarrhea)</li>
+        </ul>
+        <p style="margin-top: 1rem;">
+          Not everyone has all of these. Some people have severe pain with minimal endo, 
+          others have tons of it with little pain. Bodies are weird.
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h3>Why Diagnosis Takes Forever</h3>
+        <p>
+          The average time to get diagnosed is 7–10 years. Why? Because doctors dismiss women's pain, 
+          especially Black women's pain. They tell you it's "normal period pain" or "stress" or that 
+          you're exaggerating. The only way to officially diagnose endo is through surgery (laparoscopy), 
+          and most doctors won't do that until they've tried everything else first.
+        </p>
+      </div>
+
+      <div class="content-box">
+        <h3>The Real Problem: Medical Misogyny</h3>
+        <p>
+          Let's be honest — endometriosis doesn't get the research funding or attention it deserves 
+          because it affects women. If 1 in 10 men had a condition that caused debilitating pain and 
+          took a decade to diagnose, there would be billions poured into research. But because it's 
+          a "women's issue," it gets ignored.
+        </p>
+        <p style="margin-top: 1rem;">
+          Doctors aren't trained properly on it. Research is severely underfunded. Treatment options 
+          are limited. And women — especially Black and African women — are told we're overreacting 
+          or that pain is just part of being a woman. It's not. This is medical sexism, plain and simple.
+        </p>
+      </div>
+    </section>
+
+    <!-- NAVIGATING HEALTHCARE -->
+    <section class="resource-section">
+      <h2>Navigating <em>Nigerian Healthcare</em></h2>
+      <p class="resource-intro">
+        Being real — most Nigerian doctors don't know much about endometriosis. 
+        Here's how to deal with that.
+      </p>
+
+      <div class="resource-grid">
+        <div class="resource-card">
+          <div class="resource-icon">🩺</div>
+          <h3>Finding a Doctor Who Listens</h3>
+          <p>
+            Look for gynecologists who specialize in reproductive health or chronic pain. 
+            Ask friends, join online endo groups, and don't be afraid to switch doctors if yours isn't taking you seriously.
+          </p>
+          <ul class="resource-list">
+            <li>Ask if they've treated endo patients before</li>
+            <li>Bring a symptom diary to appointments</li>
+            <li>Don't downplay your pain</li>
+          </ul>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-icon">📋</div>
+          <h3>Questions to Ask Your Doctor</h3>
+          <ul class="resource-list">
+            <li>What are my treatment options?</li>
+            <li>What are the side effects of this medication?</li>
+            <li>Do I really need this surgery?</li>
+            <li>What happens if I don't take this medication?</li>
+            <li>Can you refer me to a specialist?</li>
+          </ul>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-icon">⚠️</div>
+          <h3>Red Flags to Watch For</h3>
+          <ul class="resource-list">
+            <li>"It's just period pain, everyone has it"</li>
+            <li>Prescribing without explaining side effects</li>
+            <li>Rushing you through appointments</li>
+            <li>Dismissing your mental health concerns</li>
+            <li>Pushing surgery or meds you're uncomfortable with</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- MANAGING PAIN -->
+    <section class="resource-section">
+      <h2>Managing the <em>Pain</em></h2>
+      <p class="resource-intro">
+        This is what has helped me. Not medical advice — just what works when the pain hits.
+      </p>
+
+      <div class="resource-grid">
+        <div class="resource-card">
+          <div class="resource-icon">🔥</div>
+          <h3>Heat Therapy</h3>
+          <p>
+            Heating pads are my best friend. Hot water bottles, heat patches, warm baths — 
+            anything that puts heat on your lower abdomen or back can help relax the muscles.
+          </p>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-icon">💊</div>
+          <h3>Over-the-Counter Pain Relief</h3>
+          <p>
+            Ibuprofen and paracetamol help, but they're not magic. Take them early, 
+            before the pain gets unbearable. Don't wait until you're already dying.
+          </p>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-icon">🍵</div>
+          <h3>Diet Changes</h3>
+          <p>
+            Some people say cutting out dairy, gluten, or red meat helps. I'm still figuring out 
+            what works for me. Ginger tea and peppermint tea can help with nausea and bloating though.
+          </p>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-icon">🧘🏾‍♀️</div>
+          <h3>Gentle Movement</h3>
+          <p>
+            When you're not in a flare, light stretching or yoga can help. On bad days, 
+            don't force it. Rest is also medicine.
+          </p>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-icon">😴</div>
+          <h3>Rest & Sleep</h3>
+          <p>
+            Fatigue is real with endo. Listen to your body. Cancel plans if you need to. 
+            Sleep when you can. Don't feel guilty about it.
+          </p>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-icon">📱</div>
+          <h3>Track Your Symptoms</h3>
+          <p>
+            Use an app or a notebook to track pain, bleeding, triggers, and what helps. 
+            It'll help you see patterns and also gives you something to show doctors.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENTAL HEALTH -->
+    <section class="resource-section">
+      <h2>Mental Health & <em>Chronic Illness</em></h2>
+      <p class="resource-intro">
+        Nobody talks about this enough. Living with chronic pain messes with your head.
+      </p>
+
+      <div class="content-box">
+        <h3>It's Not Just Physical</h3>
+        <p>
+          Anxiety, depression, feeling isolated, grief over the life you thought you'd have — 
+          it's all part of this. The medications can make it worse too. You're not overreacting, 
+          and you're not weak. This is hard.
+        </p>
+      </div>
+
+      <div class="resource-grid">
+        <div class="resource-card">
+          <div class="resource-icon">💬</div>
+          <h3>Talk to Someone</h3>
+          <p>
+            If you can afford therapy, do it. If not, talk to friends who get it. 
+            Join online support groups. Don't keep it all inside.
+          </p>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-icon">🚫</div>
+          <h3>Set Boundaries</h3>
+          <p>
+            You don't owe anyone an explanation for canceling plans. You don't have to push through pain 
+            to prove anything. Say no when you need to.
+          </p>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-icon">💜</div>
+          <h3>Be Kind to Yourself</h3>
+          <p>
+            Bad mental health days are just as valid as bad physical pain days. 
+            Give yourself grace. You're doing your best.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HELPFUL LINKS -->
+    <section class="resource-section">
+      <h2>Helpful <em>Links & Groups</em></h2>
+      <p class="resource-intro">
+        Places to learn more and connect with other people who get it.
+      </p>
+
+      <div class="resource-grid">
+        <div class="resource-card">
+          <div class="resource-icon">🌍</div>
+          <h3>International Resources</h3>
+          <ul class="resource-list">
+            <li>Endometriosis Association</li>
+            <li>Endometriosis UK</li>
+            <li>Nancy's Nook (Facebook group with research)</li>
+            <li>r/endometriosis on Reddit</li>
+          </ul>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-icon">🇳🇬</div>
+          <h3>Nigerian Support</h3>
+          <p>
+            Honestly, there aren't many Nigerian-specific endo groups yet. 
+            That's part of why I started this blog. 
+          </p>
+          <p style="margin-top: 0.8rem;">
+            <strong>Good news:</strong> I'm working on creating a community space for Nigerian women 
+            with endometriosis. Somewhere we can talk freely, share experiences, and actually understand 
+            each other. Stay tuned — it's coming soon.
+          </p>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-icon">📚</div>
+          <h3>Books & Reading</h3>
+          <ul class="resource-list">
+            <li>"Beating Endo" by Iris Kerin Orbuch</li>
+            <li>"Living with Endometriosis" by various authors</li>
+            <li>Medical journals (if you're into that)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Endo Diaries</div>
+    <ul class="footer-links">
+      <li><a href="index.html#story">My Story</a></li>
+      <li><a href="index.html#blog">Blog</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="index.html#community">Community</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 Endo Diaries · Made with 💜</p>
+  </footer>
+
+</body>
+</html>

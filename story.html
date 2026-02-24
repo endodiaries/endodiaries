@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Story - Endo Diaries</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --rose:       #e8a0b0;
+      --rose-deep:  #c4687e;
+      --blush:      #f5e6ea;
+      --lavender:   #c9afd4;
+      --plum:       #7a3f6e;
+      --cream:      #fdf6f8;
+      --text:       #2d1a26;
+      --text-muted: #8a6070;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      backdrop-filter: blur(12px);
+      background: rgba(253,246,248,0.85);
+      border-bottom: 1px solid rgba(232,160,176,0.2);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--plum);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--plum); }
+
+    /* HERO */
+    .page-hero {
+      padding: 10rem 3rem 5rem;
+      text-align: center;
+      background: linear-gradient(160deg, var(--blush) 0%, var(--cream) 100%);
+      position: relative;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 50% 40% at 70% 20%, rgba(201,175,212,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 40% at 30% 70%, rgba(232,160,176,0.2) 0%, transparent 50%);
+      z-index: 0;
+    }
+
+    .page-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .page-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--rose-deep);
+      border: 1px solid var(--rose);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .page-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--plum);
+      margin-bottom: 1rem;
+    }
+
+    .page-hero h1 em {
+      font-style: italic;
+      color: var(--rose-deep);
+    }
+
+    .page-hero p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    /* MAIN CONTENT */
+    main {
+      padding: 5rem 3rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .story-intro {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin-bottom: 3rem;
+      border: 1px solid rgba(232,160,176,0.15);
+    }
+
+    .story-intro p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .story-intro p:last-child {
+      margin-bottom: 0;
+    }
+
+    .story-section {
+      margin-bottom: 4rem;
+    }
+
+    .story-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--plum);
+      margin-bottom: 1.5rem;
+    }
+
+    .story-section h2 em {
+      font-style: italic;
+      color: var(--rose-deep);
+    }
+
+    .story-section p {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+
+    .story-section p strong {
+      color: var(--plum);
+      font-weight: 500;
+    }
+
+    .highlight-box {
+      background: var(--blush);
+      border-left: 4px solid var(--rose-deep);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 2rem 0;
+    }
+
+    .highlight-box p {
+      font-size: 0.98rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    .timeline {
+      margin: 3rem 0;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 40px;
+      bottom: -25px;
+      width: 2px;
+      background: var(--rose);
+    }
+
+    .timeline-item:last-child::before {
+      display: none;
+    }
+
+    .timeline-marker {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--rose);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-content {
+      flex: 1;
+      padding-top: 0.3rem;
+    }
+
+    .timeline-date {
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--rose-deep);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-content h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--plum);
+      margin-bottom: 0.6rem;
+      font-weight: 400;
+    }
+
+    .timeline-content p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    .pull-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--plum);
+      text-align: center;
+      margin: 3rem 0;
+      padding: 2rem 1rem;
+      position: relative;
+    }
+
+    .pull-quote::before {
+      content: '"';
+      font-size: 4rem;
+      position: absolute;
+      top: -0.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--rose);
+      opacity: 0.3;
+    }
+
+    .closing-note {
+      background: var(--plum);
+      color: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      text-align: center;
+      margin-top: 4rem;
+    }
+
+    .closing-note h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      font-weight: 300;
+    }
+
+    .closing-note p {
+      color: rgba(255,255,255,0.85);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .closing-note p:last-child {
+      margin-bottom: 0;
+    }
+
+    .btn {
+      display: inline-block;
+      background: white;
+      color: var(--plum);
+      text-decoration: none;
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: background 0.25s, transform 0.2s;
+      margin-top: 1rem;
+    }
+
+    .btn:hover {
+      background: var(--rose);
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.6);
+      padding: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: white;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8rem;
+      transition: color 0.25s;
+    }
+
+    .footer-links a:hover { color: var(--rose); }
+
+    .footer-copy { font-size: 0.78rem; }
+
+    /* ANIMATED ILLUSTRATIONS */
+    .illustration-wrapper {
+      display: flex;
+      justify-content: center;
+      margin: 3rem 0;
+    }
+
+    .illustration {
+      width: 100%;
+      max-width: 400px;
+      height: 300px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Floating shapes animation */
+    .floating-shape {
+      position: absolute;
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+      opacity: 0.6;
+    }
+
+    .shape-1 {
+      width: 80px;
+      height: 80px;
+      background: var(--rose);
+      top: 20%;
+      left: 15%;
+      animation-delay: 0s;
+    }
+
+    .shape-2 {
+      width: 60px;
+      height: 60px;
+      background: var(--lavender);
+      top: 60%;
+      right: 20%;
+      animation-delay: 1.5s;
+    }
+
+    .shape-3 {
+      width: 50px;
+      height: 50px;
+      background: var(--blush);
+      bottom: 15%;
+      left: 25%;
+      animation-delay: 3s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    /* Heart with pulse */
+    .heart-illustration {
+      font-size: 8rem;
+      animation: pulse 2s ease-in-out infinite;
+      filter: drop-shadow(0 10px 20px rgba(122,63,110,0.3));
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* Scar illustration */
+    .scar-illustration {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      margin: 0 auto;
+    }
+
+    .body-outline {
+      width: 100%;
+      height: 100%;
+      border: 3px solid var(--plum);
+      border-radius: 50% 50% 60% 40%;
+      position: relative;
+      opacity: 0.3;
+    }
+
+    .scar-mark {
+      position: absolute;
+      height: 40px;
+      width: 3px;
+      background: var(--rose-deep);
+      border-radius: 2px;
+      animation: fadeInScar 1s ease-out forwards;
+      opacity: 0;
+    }
+
+    .scar-1 {
+      top: 35%;
+      left: 45%;
+      transform: rotate(15deg);
+      animation-delay: 0.5s;
+    }
+
+    .scar-2 {
+      top: 45%;
+      left: 35%;
+      transform: rotate(-10deg);
+      animation-delay: 1s;
+    }
+
+    .scar-3 {
+      top: 50%;
+      right: 35%;
+      transform: rotate(20deg);
+      animation-delay: 1.5s;
+    }
+
+    @keyframes fadeInScar {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 0.7; transform: translateY(0); }
+    }
+
+    /* Pills animation */
+    .pills-illustration {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      width: 60px;
+      height: 30px;
+      border-radius: 30px;
+      display: flex;
+      overflow: hidden;
+      animation: pillBounce 3s ease-in-out infinite;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .pill-half {
+      flex: 1;
+    }
+
+    .pill:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .pill:nth-child(2) {
+      animation-delay: 0.5s;
+    }
+
+    .pill:nth-child(3) {
+      animation-delay: 1s;
+    }
+
+    .pill:nth-child(4) {
+      animation-delay: 1.5s;
+    }
+
+    @keyframes pillBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* Brain with thought waves */
+    .brain-illustration {
+      position: relative;
+      font-size: 6rem;
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    .thought-wave {
+      position: absolute;
+      border: 2px solid var(--lavender);
+      border-radius: 50%;
+      opacity: 0;
+      animation: thoughtWave 3s ease-out infinite;
+    }
+
+    .wave-1 {
+      width: 100px;
+      height: 100px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: 0s;
+    }
+
+    .wave-2 {
+      width: 130px;
+      height: 130px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: 0.8s;
+    }
+
+    @keyframes thoughtWave {
+      0% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.8); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(1.4); }
+    }
+
+    /* Sunrise/hope illustration */
+    .sunrise-illustration {
+      position: relative;
+      width: 200px;
+      height: 150px;
+      margin: 0 auto;
+    }
+
+    .sun {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #f5c6d0, #e8a0b0);
+      border-radius: 50%;
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: sunrise 4s ease-in-out infinite;
+      box-shadow: 0 0 30px rgba(232,160,176,0.5);
+    }
+
+    .sun-ray {
+      position: absolute;
+      width: 3px;
+      height: 20px;
+      background: var(--rose);
+      bottom: 60px;
+      left: 50%;
+      transform-origin: center;
+      animation: rayRotate 8s linear infinite;
+    }
+
+    @keyframes sunrise {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    @keyframes rayRotate {
+      from { transform: translateX(-50%) rotate(0deg); }
+      to { transform: translateX(-50%) rotate(360deg); }
+    }
+
+    /* Hot water bottle SVG illustration */
+    .heating-pad-svg {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+    }
+
+    .heat-wave {
+      animation: heatRise 2s ease-in-out infinite;
+    }
+
+    .heat-wave:nth-child(1) { animation-delay: 0s; }
+    .heat-wave:nth-child(2) { animation-delay: 0.3s; }
+    .heat-wave:nth-child(3) { animation-delay: 0.6s; }
+
+    @keyframes heatRise {
+      0% { opacity: 0.8; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-30px); }
+    }
+
+    /* Laparoscopy scars SVG */
+    .scar-svg {
+      width: 250px;
+      height: 300px;
+      margin: 0 auto;
+    }
+
+    .scar-line {
+      stroke: var(--rose-deep);
+      stroke-width: 3;
+      stroke-linecap: round;
+      animation: scarAppear 1.5s ease-out forwards;
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+    }
+
+    .scar-line:nth-child(1) { animation-delay: 0.5s; }
+    .scar-line:nth-child(2) { animation-delay: 1s; }
+    .scar-line:nth-child(3) { animation-delay: 1.5s; }
+
+    @keyframes scarAppear {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* Pain wave illustration */
+    .pain-wave-svg {
+      width: 280px;
+      height: 150px;
+      margin: 0 auto;
+    }
+
+    .pain-pulse {
+      fill: var(--rose);
+      opacity: 0.3;
+      animation: painPulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes painPulse {
+      0%, 100% { transform: scale(0.8); opacity: 0.2; }
+      50% { transform: scale(1.1); opacity: 0.5; }
+    }
+
+    /* Prayer hands illustration */
+    .prayer-svg {
+      width: 150px;
+      height: 180px;
+      margin: 0 auto;
+    }
+
+    .prayer-glow {
+      opacity: 0.6;
+      animation: prayerGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes prayerGlow {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.8; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      .page-hero { padding: 8rem 1.5rem 4rem; }
+      main { padding: 3rem 1.5rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Endo Diaries</a>
+    <ul class="nav-links">
+      <li><a href="story.html" class="active">My Story</a></li>
+      <li><a href="index.html#blog">Blog</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="index.html#community">Community</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <span class="page-tag">This is me</span>
+      <h1>My <em>Story</em></h1>
+      <p>
+        How I got diagnosed, what I've been through, and why I decided to start talking about it.
+      </p>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <div class="story-intro">
+      <p>
+        My name is Mazz. I'm a Nigerian woman in my 20s, and I have endometriosis. 
+        Getting to that sentence — actually being able to say "I have endometriosis" — took years.
+      </p>
+      <p>
+        This is the full story. The ER visits, the surgery I didn't need, the medications that 
+        wrecked my mental health, and how I'm learning to live with all of it.
+      </p>
+    </div>
+
+    <!-- TIMELINE -->
+    <section class="story-section">
+      <h2>The <em>Timeline</em></h2>
+      <p>Here's how it all happened, as best as I can remember.</p>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-marker">🔥</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Late 2019 - University</div>
+            <h3>The First Flare — When It All Started</h3>
+            <p>
+              I was in university when it happened. The most gruesome pain I have ever experienced in my life. 
+              I was screaming. Crying for help. I had never felt anything like it before.
+            </p>
+            <p style="margin-top: 0.8rem;">
+              My neighbors and friends tried everything — Felvin, Panadol Extra, herbs, even dry gin. Nothing worked. 
+              My landlady was a pastor. She gave me anointing oil. It didn't work. People laid hands on me to pray. 
+              Still nothing. I was in pain for the entire day until it finally subsided at night and I could sleep.
+            </p>
+            <p style="margin-top: 0.8rem;">
+              The next day, my best friend had to literally carry me to the bathroom and help me change my pad. 
+              I was an invalid for that whole period. Completely helpless.
+            </p>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin: 3rem 0;">
+          <img src="images/heating-pad.jpeg" alt="Woman with heating pad for endometriosis pain" 
+               style="max-width: 500px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 8px 25px rgba(122,63,110,0.15);">
+          <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 1rem; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.7;">
+            The only thing that helps sometimes — heat, rest, and hoping it passes.
+          </p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker">🌙</div>
+          <div class="timeline-content">
+            <div class="timeline-date">The ER Visits Begin</div>
+            <h3>Living With the Pain</h3>
+            <p>
+              After that, I had to live with that pain for a really long time. I was rushed to the ER so many times. 
+              There was one flare where I actually passed out before we could even get to the hospital. 
+              My elder sister kept Kabashing the whole way there.
+            </p>
+            <p style="margin-top: 0.8rem;">
+              Nobody knew what was wrong with me. Not the doctors. Not my family. Not me. 
+              Just pain, over and over, with no answers.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker">💔</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Age 24</div>
+            <h3>Finally, A Diagnosis</h3>
+            <p>
+              At 24, I finally got diagnosed with endometriosis. You'd think that would be a relief — 
+              finally having a name for what was happening. But honestly? It just opened the door to 
+              a whole new set of problems. Because knowing what's wrong doesn't automatically mean 
+              doctors know how to fix it.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker">🏥</div>
+          <div class="timeline-content">
+            <div class="timeline-date">2022</div>
+            <h3>The Surgery I Didn't Need</h3>
+            <p>
+              In 2022, they told me I needed a cystectomy. They made it sound urgent, like it was the 
+              only way forward. So I trusted them. I went through with it. Later, I found out I didn't 
+              even need that surgery. That still messes with me — the idea that my body was cut open 
+              for nothing. The scar is still there, a permanent reminder.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker">✂️</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Last Year</div>
+            <h3>Another Surgery — This Time, Necessary</h3>
+            <p>
+              Last year, I had a laparoscopy to remove endometriomas. This time it was actually needed. 
+              More scars. More recovery time. More reminders that this condition doesn't just go away. 
+              These scars are part of my story now — physical proof of what I've been through.
+            </p>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin: 3rem 0; padding: 0 1rem;">
+          <img src="images/scar-diagram.jpeg" alt="Laparoscopy scar placement diagram" 
+               style="max-width: 300px; width: 100%; height: auto; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 6px 20px rgba(122,63,110,0.12);">
+          <img src="images/actual-scar.jpeg" alt="Real laparoscopy scar with stitches" 
+               style="max-width: 450px; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 20px rgba(122,63,110,0.12);">
+          <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 1.5rem; max-width: 550px; margin-left: auto; margin-right: auto; line-height: 1.8;">
+            Where they cut (top) and what the scars actually look like with stitches (bottom). 
+            These marks are still here — permanent proof of what I've been through.
+          </p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker">💊</div>
+          <div class="timeline-content">
+            <div class="timeline-date">After Surgery</div>
+            <h3>The Medication Merry-Go-Round</h3>
+            <p>
+              After the surgery, it was medication after medication. Each one came with side effects 
+              they barely explained. Some made the pain worse. Some didn't touch the pain at all. 
+              And some? Some absolutely destroyed my mental health. I developed crippling anxiety that 
+              I didn't have before. Depression that showed up out of nowhere and stayed.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker">🧠</div>
+          <div class="timeline-content">
+            <div class="timeline-date">The Mental Toll</div>
+            <h3>When Your Mind Becomes Part of the Battle</h3>
+            <p>
+              Nobody warns you about this part. The physical pain is one thing, but the mental health 
+              struggles? That's a whole other layer. The anxiety. The depression. The feeling of being 
+              trapped in a body that's constantly fighting you. The guilt when you have to cancel plans. 
+              The isolation when nobody understands. It all piles up.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker">✨</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Now</div>
+            <h3>Choosing to Live Anyway</h3>
+            <p>
+              At some point, I had to make a decision. I could let this illness take over my entire life, 
+              or I could figure out how to live with it. Not around it, not in spite of it — with it. 
+              I started thinking about all the amazing things I still want to do. And I decided I wasn't 
+              going to wait until I felt "better" to start living. So here I am.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="pull-quote">
+      This illness won't stop me from living my best life.
+    </div>
+
+    <!-- WHAT I LEARNED -->
+    <section class="story-section">
+      <h2>What I've <em>Learned</em></h2>
+
+      <div style="text-align: center; margin: 2rem 0 3rem;">
+        <img src="images/endo-diagram.jpeg" alt="Endometriosis vs Normal uterus diagram" 
+             style="max-width: 500px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 8px 25px rgba(122,63,110,0.15);">
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 1rem; max-width: 500px; margin-left: auto; margin-right: auto;">
+          Understanding what endometriosis actually does inside my body helped me fight for better care.
+        </p>
+      </div>
+
+      <p>
+        If you're reading this and you're going through something similar, here's what I wish 
+        someone had told me:
+      </p>
+
+      <div class="highlight-box">
+        <p>
+          <strong>Your pain is real.</strong> Even if doctors dismiss it. Even if your family doesn't 
+          understand. Even if you're tired of explaining it. It's real, and you're not overreacting.
+        </p>
+      </div>
+
+      <div class="highlight-box">
+        <p>
+          <strong>You don't have to accept bad treatment.</strong> If a doctor isn't listening to you, 
+          find another one. If a medication is making things worse, speak up. You have the right to 
+          ask questions, to say no, and to demand better care.
+        </p>
+      </div>
+
+      <div class="highlight-box">
+        <p>
+          <strong>It's okay to be angry.</strong> About the years it took to get diagnosed. About the 
+          unnecessary procedures. About the lack of research funding because this is a "women's issue." 
+          Be angry. Use that anger to advocate for yourself.
+        </p>
+      </div>
+
+      <div class="highlight-box">
+        <p>
+          <strong>Your mental health matters too.</strong> The depression and anxiety aren't separate 
+          from your chronic illness — they're part of it. Take them just as seriously as the physical pain.
+        </p>
+      </div>
+
+      <div class="highlight-box">
+        <p>
+          <strong>You're allowed to rest.</strong> Cancel plans. Say no. Stay in bed when you need to. 
+          Rest is not laziness. Rest is survival.
+        </p>
+      </div>
+
+      <div class="highlight-box">
+        <p>
+          <strong>You're not alone.</strong> Even when it feels like no one gets it, there are other 
+          women out there fighting the same fight. Find them. Talk to them. We need each other.
+        </p>
+      </div>
+    </section>
+
+    <!-- CLOSING -->
+    <div class="closing-note">
+      <h3>Why I Started This Blog</h3>
+      <p>
+        I started writing because I needed somewhere to put all of this. The frustration, the pain, 
+        the small victories, the bad days. Somewhere that felt honest.
+      </p>
+      <p>
+        If my story helps even one person feel less alone, or helps someone recognize their own 
+        symptoms earlier, or gives someone the courage to push back against a dismissive doctor — 
+        then it's worth it.
+      </p>
+      <p style="margin-bottom: 0;">
+        This is my story. But it doesn't have to be yours. We deserve better care, better research, 
+        and better understanding. And we're going to keep talking until we get it.
+      </p>
+      <a href="index.html#blog" class="btn">Read My Blog Posts</a>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Endo Diaries</div>
+    <ul class="footer-links">
+      <li><a href="story.html">My Story</a></li>
+      <li><a href="index.html#blog">Blog</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="index.html#community">Community</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 Endo Diaries · Made with 💜</p>
+  </footer>
+
+</body>
+</html>

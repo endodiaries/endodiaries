@@ -871,10 +871,11 @@
       I'll send you new posts when I write them. No spam or anything weird — 
       just real talk about living with this condition. You can unsubscribe whenever.
     </p>
-    <div class="subscribe-form">
-      <input type="email" placeholder="your@email.com" />
-      <button type="button">Subscribe</button>
-    </div>
+   <form action="https://formspree.io/f/xwvreojr" method="POST" class="subscribe-form" id="newsletter-form">
+  <input type="email" name="email" placeholder="your@email.com" required />
+  <button type="submit">Subscribe</button>
+</form>
+<p id="form-status" style="margin-top: 1rem; font-size: 0.9rem; display: none;"></p>
     <p class="community-note">No spam, ever. Unsubscribe anytime.</p>
   </section>
 

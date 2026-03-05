@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Cystectomy I Didn't Need - Endo Diaries</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --rose:       #e8a0b0;
+      --rose-deep:  #c4687e;
+      --blush:      #f5e6ea;
+      --lavender:   #c9afd4;
+      --plum:       #7a3f6e;
+      --cream:      #fdf6f8;
+      --text:       #2d1a26;
+      --text-muted: #8a6070;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      backdrop-filter: blur(12px);
+      background: rgba(253,246,248,0.85);
+      border-bottom: 1px solid rgba(232,160,176,0.2);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--plum);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--plum); }
+
+    /* POST HEADER */
+    .post-header {
+      padding: 10rem 3rem 3rem;
+      text-align: center;
+      background: linear-gradient(160deg, var(--blush) 0%, var(--cream) 100%);
+    }
+
+    .post-category {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--rose-deep);
+      border: 1px solid var(--rose);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .post-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--plum);
+      margin-bottom: 1rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .post-meta {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 1.5rem;
+    }
+
+    /* POST CONTENT */
+    article {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    article p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    article h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--plum);
+      margin: 3rem 0 1.5rem;
+    }
+
+    article h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--plum);
+      margin: 2rem 0 1rem;
+    }
+
+    article strong {
+      color: var(--plum);
+      font-weight: 500;
+    }
+
+    article em {
+      font-style: italic;
+      color: var(--rose-deep);
+    }
+
+    .callout {
+      background: var(--blush);
+      border-left: 4px solid var(--rose-deep);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 2rem 0;
+    }
+
+    .callout p {
+      margin-bottom: 0;
+      font-size: 1rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.6);
+      padding: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: white;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8rem;
+      transition: color 0.25s;
+    }
+
+    .footer-links a:hover { color: var(--rose); }
+    .footer-copy { font-size: 0.78rem; }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .post-header { padding: 8rem 1.5rem 2rem; }
+      article { padding: 3rem 1.5rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Endo Diaries</a>
+    <ul class="nav-links">
+      <li><a href="story.html">My Story</a></li>
+      <li><a href="index.html#blog">Blog</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="index.html#community">Community</a></li>
+    </ul>
+  </nav>
+
+  <!-- POST HEADER -->
+  <header class="post-header">
+    <span class="post-category">Personal Story</span>
+    <h1>The Cystectomy I Didn't Need — And What It Took From Me</h1>
+    <div class="post-meta">February 10, 2025 · 8 min read</div>
+  </header>
+
+  <!-- POST CONTENT -->
+  <article>
+    <p>
+      In 2022, they told me I needed surgery. A cystectomy. They made it sound urgent, like it was the only way forward. Like if I didn't do it, things would get worse.
+    </p>
+
+    <p>
+      So I trusted them. I went through with it.
+    </p>
+
+    <p>
+      Later, I found out I didn't even need it.
+    </p>
+
+    <h2>How It Started</h2>
+
+    <p>
+      I'd been dealing with endometriosis for a while by then. The pain, the ER visits, the whole mess. When they found a cyst, the doctor didn't hesitate. "We need to remove it," they said. "It's the best option."
+    </p>
+
+    <p>
+      I asked questions. What happens if we don't? Are there other options? But the answers were vague. "This is what we do for cases like yours." That kind of thing. They made it sound like there was no other choice.
+    </p>
+
+    <p>
+      I was tired. Tired of the pain, tired of not knowing what was wrong, tired of feeling like my body was working against me. So when they said surgery would help, I believed them.
+    </p>
+
+    <div class="callout">
+      <p>
+        <strong>Here's what I wish I'd known:</strong> Just because a doctor recommends something doesn't mean it's the only option. Just because they sound confident doesn't mean they're right. And just because you're in pain doesn't mean you have to say yes to the first thing they suggest.
+      </p>
+    </div>
+
+    <h2>The Surgery</h2>
+
+    <p>
+      The operation itself was fine, I guess. I mean, as fine as getting cut open can be. They did what they said they'd do. Removed the cyst. Sent me home to recover.
+    </p>
+
+    <p>
+      Recovery was rough. Not just physically — though yeah, that part sucked too. But mentally, I kept thinking, "This better be worth it." I kept telling myself it would all make sense once I healed. That the pain would be gone. That I'd feel better.
+    </p>
+
+    <p>
+      Spoiler: I didn't.
+    </p>
+
+    <h2>The Truth Comes Out</h2>
+
+    <p>
+      Months later, I was still having problems. Still in pain. Still dealing with all the same issues I had before the surgery. So I went back. Tried to get answers.
+    </p>
+
+    <p>
+      That's when a different doctor looked at my records and said, almost casually, "You know, you probably didn't need that surgery."
+    </p>
+
+    <p>
+      Just like that. Like it was no big deal.
+    </p>
+
+    <p>
+      I sat there, stunned. Didn't need it? Then why the hell did I go through with it?
+    </p>
+
+    <p>
+      The new doctor explained that the cyst could have been managed other ways. That surgery should have been a last resort, not the first option. That the original doctor probably jumped to it because that's what they were trained to do — cut first, ask questions later.
+    </p>
+
+    <div class="callout">
+      <p>
+        That moment broke something in me. The realization that I'd been cut open for nothing. That I'd trusted someone who didn't take the time to explore other options. That my body had become someone's practice run.
+      </p>
+    </div>
+
+    <h2>What It Took From Me</h2>
+
+    <p>
+      The scar is still there. Every time I see it, I'm reminded. Not just of the surgery, but of the fact that it didn't have to happen.
+    </p>
+
+    <p>
+      But it's more than just a physical scar. It's the trust I lost. In doctors. In the system. In my own ability to make decisions about my body. Because if I couldn't trust the experts, who could I trust?
+    </p>
+
+    <p>
+      It's the time I lost recovering from something I didn't need. The pain I went through for no reason. The hope I had that this would fix things, only to find out it changed nothing.
+    </p>
+
+    <p>
+      And it's the anger. God, the anger. At the doctor who recommended it. At myself for not pushing back harder. At a healthcare system that treats women — especially Black women, especially African women — like we're expendable. Like our pain doesn't matter. Like our bodies are just things to experiment on.
+    </p>
+
+    <h2>What I Learned</h2>
+
+    <p>
+      I learned that I have to be my own advocate. That I can't just take a doctor's word for it, no matter how confident they sound. That I need to ask more questions, push for second opinions, and never feel bad about saying "Let me think about it."
+    </p>
+
+    <p>
+      I learned that my body is mine. Not theirs. Mine. And nobody gets to make decisions about it without me fully understanding what's happening and why.
+    </p>
+
+    <p>
+      I learned that mistakes happen, but when it's your body on the line, "mistakes" aren't just inconveniences. They're scars. They're trauma. They're pieces of yourself you don't get back.
+    </p>
+
+    <h2>If You're Reading This</h2>
+
+    <p>
+      If you're in a similar situation — if a doctor is pushing you toward a surgery or treatment and you're not sure — take your time. Ask questions. Get a second opinion. Hell, get a third.
+    </p>
+
+    <p>
+      Don't let them rush you. Don't let them make you feel like you're being difficult for wanting more information. Your body. Your choice. Your right to understand what's happening.
+    </p>
+
+    <p>
+      And if something goes wrong, if you find out later that it wasn't necessary, don't blame yourself. You did the best you could with the information you had. The fault lies with the system that failed you. Not with you.
+    </p>
+
+    <div class="callout">
+      <p>
+        <strong>The scar is still there. But so am I.</strong> And I'm done letting anyone treat my body like it doesn't matter.
+      </p>
+    </div>
+
+    <p style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--blush); color: var(--text-muted); font-size: 0.95rem;">
+      — Mazz
+    </p>
+  </article>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Endo Diaries</div>
+    <ul class="footer-links">
+      <li><a href="story.html">My Story</a></li>
+      <li><a href="index.html#blog">Blog</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="index.html#community">Community</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 Endo Diaries · Made with 💜</p>
+  </footer>
+
+</body>
+</html>

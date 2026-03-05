@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Anxiety No One Warned Me About - Endo Diaries</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --rose:       #e8a0b0;
+      --rose-deep:  #c4687e;
+      --blush:      #f5e6ea;
+      --lavender:   #c9afd4;
+      --plum:       #7a3f6e;
+      --cream:      #fdf6f8;
+      --text:       #2d1a26;
+      --text-muted: #8a6070;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      backdrop-filter: blur(12px);
+      background: rgba(253,246,248,0.85);
+      border-bottom: 1px solid rgba(232,160,176,0.2);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--plum);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--plum); }
+
+    .post-header {
+      padding: 10rem 3rem 3rem;
+      text-align: center;
+      background: linear-gradient(160deg, var(--blush) 0%, var(--cream) 100%);
+    }
+
+    .post-category {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--rose-deep);
+      border: 1px solid var(--rose);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .post-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--plum);
+      margin-bottom: 1rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .post-meta {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 1.5rem;
+    }
+
+    article {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    article p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    article h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--plum);
+      margin: 3rem 0 1.5rem;
+    }
+
+    article strong {
+      color: var(--plum);
+      font-weight: 500;
+    }
+
+    .callout {
+      background: var(--blush);
+      border-left: 4px solid var(--rose-deep);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 2rem 0;
+    }
+
+    .callout p {
+      margin-bottom: 0;
+      font-size: 1rem;
+    }
+
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.6);
+      padding: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: white;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8rem;
+      transition: color 0.25s;
+    }
+
+    .footer-links a:hover { color: var(--rose); }
+    .footer-copy { font-size: 0.78rem; }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .post-header { padding: 8rem 1.5rem 2rem; }
+      article { padding: 3rem 1.5rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Endo Diaries</a>
+    <ul class="nav-links">
+      <li><a href="story.html">My Story</a></li>
+      <li><a href="index.html#blog">Blog</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="index.html#community">Community</a></li>
+    </ul>
+  </nav>
+
+  <header class="post-header">
+    <span class="post-category">Mental Health</span>
+    <h1>The Anxiety No One Warned Me About</h1>
+    <div class="post-meta">January 14, 2025 · 5 min read</div>
+  </header>
+
+  <article>
+    <p>
+      The meds were supposed to help with the pain. Instead, they gave me panic attacks and made me feel like I was losing my mind.
+    </p>
+
+    <p>
+      Nobody warned me this would happen.
+    </p>
+
+    <h2>Before the Medication</h2>
+
+    <p>
+      I wasn't an anxious person. Sure, I worried about normal things — school, work, money, the usual. But I didn't have anxiety. Not the kind that keeps you up at night. Not the kind that makes your heart race for no reason.
+    </p>
+
+    <p>
+      I was dealing with endometriosis, yeah. And that was hard. But mentally? I was okay. I was coping.
+    </p>
+
+    <p>
+      Then they put me on medication. And everything changed.
+    </p>
+
+    <h2>The First Signs</h2>
+
+    <p>
+      It started small. Little things that I brushed off at first. Feeling on edge. Having trouble sleeping. Getting irritable over stuff that normally wouldn't bother me.
+    </p>
+
+    <p>
+      I thought it was just stress. I thought it was the pain wearing me down. I didn't connect it to the medication.
+    </p>
+
+    <p>
+      But then it got worse.
+    </p>
+
+    <p>
+      I started having panic attacks. Real, full-blown panic attacks where I couldn't breathe, couldn't think, felt like I was dying. They came out of nowhere. I'd be sitting there, doing nothing, and suddenly my chest would tighten and my mind would spiral.
+    </p>
+
+    <p>
+      I'd never felt anything like it before. And it terrified me.
+    </p>
+
+    <div class="callout">
+      <p>
+        <strong>Here's what they don't tell you:</strong> A lot of medications used to treat endometriosis mess with your hormones. And when your hormones get messed with, your mental health can tank. Fast.
+      </p>
+    </div>
+
+    <h2>The Depression</h2>
+
+    <p>
+      The anxiety was bad enough. But then the depression showed up.
+    </p>
+
+    <p>
+      I've always been a pretty positive person. Even when things were hard, I could find something to hold onto. Some reason to keep going.
+    </p>
+
+    <p>
+      But this? This was different. It wasn't sadness. It was emptiness. Like someone had reached into my chest and hollowed me out. I didn't care about things I used to care about. I didn't want to see people. I didn't want to do anything.
+    </p>
+
+    <p>
+      Getting out of bed felt impossible. And when I did, it felt pointless.
+    </p>
+
+    <p>
+      I tried to push through it. I tried to convince myself it was temporary. That once the medication kicked in and the pain got better, I'd feel better too.
+    </p>
+
+    <p>
+      But the pain didn't get better. And neither did I.
+    </p>
+
+    <h2>When It Got Dark</h2>
+
+    <p>
+      I need to be honest about something. The depression got so bad that I didn't want to be here anymore.
+    </p>
+
+    <p>
+      I got suicidal. Really suicidal. Not just "I wish I wasn't here" thoughts. I wrote a suicide note. I kept a small knife nearby, thinking about slitting my wrist.
+    </p>
+
+    <p>
+      I'm not proud of it. And honestly, it's hard to write this down. But if I'm going to talk about what these medications did to me, I have to talk about all of it. Not just the parts that are easier to share.
+    </p>
+
+    <p>
+      That wasn't me. I'd never felt that way before in my life. But the medication pushed me to a place I didn't recognize. A place where ending everything felt like the only way to make the pain stop.
+    </p>
+
+    <div class="callout">
+      <p>
+        <strong>If you're in that place right now, please tell someone.</strong> A friend. A family member. A doctor. Anyone. You don't have to fight this alone. And there are people who can help — even when it doesn't feel like it.
+      </p>
+    </div>
+
+    <h2>When I Finally Spoke Up</h2>
+
+    <p>
+      It took me months to tell my doctor what was happening. Partly because I didn't realize the medication was causing it. And partly because I was embarrassed.
+    </p>
+
+    <p>
+      Mental health isn't something we talk about openly in Nigerian culture. You're supposed to be strong. You're supposed to push through. Admitting you're struggling feels like admitting weakness.
+    </p>
+
+    <p>
+      But eventually, I couldn't take it anymore. So I went back to the doctor and said, "I don't feel like myself. Something's wrong."
+    </p>
+
+    <p>
+      You know what they said? "Oh, yeah. That's a common side effect."
+    </p>
+
+    <p>
+      A common side effect. Like it was no big deal. Like crippling anxiety and depression were just minor inconveniences.
+    </p>
+
+    <div class="callout">
+      <p>
+        They never mentioned it before prescribing the medication. Never warned me it could happen. Never asked how I was doing mentally. They only cared when I brought it up myself.
+      </p>
+    </div>
+
+    <h2>What Happened Next</h2>
+
+    <p>
+      I didn't go through with it. Obviously. I'm still here.
+    </p>
+
+    <p>
+      But it was close. Closer than I want to admit.
+    </p>
+
+    <p>
+      Eventually, I told my doctor what was happening. They switched my medication. Tried something else. But by then, the damage was done.
+    </p>
+
+    <p>
+      The suicidal thoughts faded, thank God. But the anxiety didn't just go away. Even after I stopped taking the meds that caused it, it stuck around. Like my brain had learned this new pattern and didn't know how to unlearn it.
+    </p>
+
+    <p>
+      I still deal with it now. Some days are better than others. Some days I wake up and feel okay. Other days, the panic is right there, waiting.
+    </p>
+
+    <p>
+      I've had to learn coping strategies. Breathing exercises. Grounding techniques. Ways to talk myself down when the spiral starts.
+    </p>
+
+    <p>
+      But I shouldn't have had to learn any of this. Because if they'd warned me in the first place — if they'd told me that these medications could make me want to die — I could have made an informed decision. I could have weighed the risks. I could have said no.
+    </p>
+
+    <p>
+      Instead, they almost killed me. Not with the endometriosis. With the treatment.
+    </p>
+
+    <h2>The Mental Health Gap</h2>
+
+    <p>
+      Doctors treat the physical symptoms of endometriosis, but they ignore the mental health side. They don't ask how you're doing emotionally. They don't screen for anxiety or depression. They don't prepare you for what might happen when they mess with your hormones.
+    </p>
+
+    <p>
+      And when things go wrong, when your mental health tanks, they treat it like it's separate from your physical condition. Like it's not their problem.
+    </p>
+
+    <p>
+      But it's not separate. Your mental health and your physical health are connected. And chronic illness affects both.
+    </p>
+
+    <p>
+      Living with constant pain is exhausting. Dealing with doctors who don't listen is frustrating. Having your body betray you over and over is traumatic.
+    </p>
+
+    <p>
+      Add medication-induced anxiety and depression on top of that? It's a lot. It's too much.
+    </p>
+
+    <h2>What I Want You to Know</h2>
+
+    <p>
+      If you're starting medication for endometriosis — or any chronic condition — ask about the mental health side effects. Push your doctor to be specific. Don't let them brush it off.
+    </p>
+
+    <p>
+      And if you start experiencing anxiety, depression, mood swings, or anything else that feels off, speak up immediately. Don't wait. Don't assume it'll pass. Don't blame yourself.
+    </p>
+
+    <p>
+      Your mental health matters just as much as your physical health. And you deserve to be warned. You deserve to be supported. You deserve care that treats you as a whole person, not just a set of symptoms.
+    </p>
+
+    <div class="callout">
+      <p>
+        <strong>The anxiety is still here. The scars are still here. But so am I.</strong> And I'm grateful I didn't go through with it. Because there are still amazing things I want to do. And I'm going to do them — not because I'm "better," but because I'm still here to try.
+      </p>
+    </div>
+
+    <p style="margin-top: 2rem; padding: 1.5rem; background: #fdf6f8; border-radius: 10px; font-size: 0.95rem; line-height: 1.8;">
+      <strong>If you're struggling with suicidal thoughts:</strong><br>
+      Nigeria: Mentally Aware Nigeria Initiative (MANI) — 0814 079 0630 / 0811 111 0323<br>
+      International: You're not alone. Please reach out to a crisis line in your country, talk to someone you trust, or go to your nearest hospital. Your life matters.
+    </p>
+
+    <p style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--blush); color: var(--text-muted); font-size: 0.95rem;">
+      — Mazz
+    </p>
+  </article>
+
+  <footer>
+    <div class="footer-logo">Endo Diaries</div>
+    <ul class="footer-links">
+      <li><a href="story.html">My Story</a></li>
+      <li><a href="index.html#blog">Blog</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="index.html#community">Community</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 Endo Diaries · Made with 💜</p>
+  </footer>
+
+</body>
+</html>

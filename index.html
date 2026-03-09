@@ -905,19 +905,49 @@
 
     reveals.forEach(el => observer.observe(el));
 
-    // Smooth subscribe button
-    document.querySelector('.subscribe-form button').addEventListener('click', function() {
-      const input = document.querySelector('.subscribe-form input');
-      if (input.value && input.value.includes('@')) {
-        this.textContent = '💜 Subscribed!';
-        this.style.background = 'white';
+   // Newsletter form submission
+const form = document.getElementById('newsletter-form');
+const status = document.getElementById('form-status');
+
+if (form) {
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const button = this.querySelector('button');
+    const input = this.querySelector('input[type="email"]');
+    
+    button.textContent = 'Subscribing...';
+    button.disabled = true;
+    
+    try {
+      const response = await fetch(this.action, {
+        method: 'POST',
+        body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+      });
+      
+      if (response.ok) {
+        status.style.display = 'block';
+        status.style.color = 'white';
+        status.textContent = '✅ Thank you for subscribing!';
         input.value = '';
-        setTimeout(() => { this.textContent = 'Subscribe'; }, 3000);
+        button.textContent = 'Subscribed!';
+        setTimeout(() => { 
+          button.textContent = 'Subscribe';
+          button.disabled = false;
+          status.style.display = 'none';
+        }, 5000);
       } else {
-        input.style.background = 'rgba(255,100,100,0.2)';
-        setTimeout(() => { input.style.background = ''; }, 1000);
+        throw new Error('Submission failed');
       }
-    });
+    } catch (error) {
+      status.style.display = 'block';
+      status.style.color = '#ffcccc';
+      status.textContent = '❌ Something went wrong. Please try again.';
+      button.textContent = 'Subscribe';
+      button.disabled = false;
+    }
+  });
+}
   </script>
 </body>
 </html>
